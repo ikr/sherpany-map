@@ -57,6 +57,7 @@
   },
   "browserify-shim": {
     "react": "global:React",
-    "react-dom": "global:ReactDOM"
+    "react-dom": "global:ReactDOM",
+    "People": "global:People"
   }
 }

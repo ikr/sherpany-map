@@ -17,7 +17,7 @@ export default function Map () {
                 width={980}
                 height={551}
                 style={{width: '100%', height: 'auto'}}>
-                <ZoomableGroup center={[0,20]} disablePanning>
+                <ZoomableGroup center={[0, 20]} disablePanning>
                     <Geographies geography='world-110m.json'>
                     </Geographies>
                 </ZoomableGroup>

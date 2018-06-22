@@ -1,8 +1,8 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import People from 'People'
+import Map from './Map'
 
 ReactDOM.render(
-    (<h1>Well, hello, {People[0].name.first}!</h1>),
+    (<Map/>),
     global.document.getElementById('root')
 )

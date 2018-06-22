@@ -1,5 +1,13 @@
 import React from 'react'
-import {ComposableMap, ZoomableGroup, Geographies, Geography} from 'react-simple-maps'
+import PropTypes from 'prop-types'
+import {
+    ComposableMap,
+    ZoomableGroup,
+    Geographies,
+    Geography,
+    Markers,
+    Marker
+} from 'react-simple-maps'
 
 function generateGeographies (geographies, projection) {
     return geographies.map((geography, i) => geography.id !== 'ATA' && (
@@ -30,8 +38,33 @@ function generateGeographies (geographies, projection) {
     ))
 }
 
-export default function Map () {
-    const props = {
+function generateMarkers (markers) {
+    return markers.map((marker, i) => (
+        <Marker
+            key={i}
+            marker={marker}
+            style={{
+                default: { fill: '#FF5722' },
+                hover: { fill: '#FFFFFF' },
+                pressed: { fill: '#FF5722' }
+            }}>
+            <circle
+                cx={0}
+                cy={0}
+                r={10}
+                style={{stroke: '#FF5722', strokeWidth: 3, opacity: 0.9}}/>
+            <text
+                textAnchor="middle"
+                y={marker.markerOffset}
+                style={{fontFamily: 'sans-serif', fill: '#607D8B'}}>
+                {marker.name}
+            </text>
+        </Marker>
+    ))
+}
+
+export default function Map (props) {
+    const divProps = {
         style: {
             width: '100%',
             maxWidth: 980,
@@ -40,7 +73,7 @@ export default function Map () {
     }
 
     return (
-        <div {...props}>
+        <div {...divProps}>
             <ComposableMap
                 projectionConfig={{scale: 205, rotation: [-11, 0, 0]}}
                 width={980}
@@ -50,8 +83,18 @@ export default function Map () {
                     <Geographies geography='world-110m.json'>
                         {generateGeographies}
                     </Geographies>
+                    <Markers>
+                        {generateMarkers(props.markers)}
+                    </Markers>
                 </ZoomableGroup>
             </ComposableMap>
         </div>
     )
+}
+
+Map.propTypes = {
+    markers: PropTypes.arrayOf(PropTypes.shape({
+        name: PropTypes.string.isRequired,
+        coordinates: PropTypes.arrayOf(PropTypes.number)
+    })).isRequired
 }

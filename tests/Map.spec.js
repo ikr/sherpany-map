@@ -9,11 +9,11 @@ describe('Map', () => {
     })
 })
 
-describe('Map element', () => {
+describe('Map element structure', () => {
     let mapBox
 
     beforeEach(() => {
-        mapBox = shallow(<Map/>)
+        mapBox = shallow(<Map markers={[]}/>)
     })
 
     it('is a div on top level', () => {
@@ -65,6 +65,48 @@ describe('Map element', () => {
                     assert.strictEqual(geographiesBox.prop('geography'), 'world-110m.json')
                 })
             })
+
+            describe('Markers', () => {
+                let markersBox
+
+                beforeEach(() => {
+                    markersBox = zoomableGroupBox.find('Markers')
+                })
+
+                it('is present', () => {
+                    assert(markersBox.exists())
+                })
+            })
+        })
+    })
+})
+
+describe('Map element with 2 markers', () => {
+    const m1 = {name: 'Mrs Catherine Brady', coordinates: [-7.0208, 97.2450]}
+    const m2 = {name: 'Mr Matthew Knight', coordinates: [43.1676, 26.5837]}
+    let mapBox
+
+    beforeEach(() => {
+        mapBox = shallow(<Map markers={[m1, m2]}/>)
+    })
+
+    it('renders 2 markers', () => {
+        assert.strictEqual(mapBox.find('Marker').length, 2)
+    })
+
+    describe('2nd marker', () => {
+        let markerBox
+
+        beforeEach(() => {
+            markerBox = mapBox.find('Marker').at(1)
+        })
+
+        it('is present', () => {
+            assert(markerBox.exists())
+        })
+
+        it('recerives the proper marker prop value from the Map', () => {
+            assert.deepEqual(markerBox.prop('marker'), m2)
         })
     })
 })

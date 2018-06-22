@@ -61,6 +61,7 @@
     "People": "global:People"
   },
   "dependencies": {
+    "prop-types": "^15.6.2",
     "react-simple-maps": "^0.12.1"
   }
 }

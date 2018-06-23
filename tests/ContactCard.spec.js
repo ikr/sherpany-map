@@ -51,10 +51,34 @@ describe('ContactCard element', () => {
         )
     })
 
-    it.skip('contains the capitalized salutation and the capitalized name', () => {
+    it('contains the capitalized salutation and the capitalized name', () => {
         assert.strictEqual(
             contactCardBox.find('span.name').text(),
             'Monsieur Matthieu Roux'
         )
+    })
+
+    describe('addresses', () => {
+        let liBox
+
+        beforeEach(() => {
+            liBox = contactCardBox.find('article > ul > li')
+        })
+
+        it('contain e-mail', () => {
+            assert.strictEqual(liBox.at(0).text(), 'matthieu.roux@example.com')
+        })
+
+        it('contain cell number', () => {
+            assert.strictEqual(liBox.at(1).text(), '(826)-020-3024')
+        })
+
+        it('contain street address', () => {
+            assert.strictEqual(liBox.at(2).text(), '605 Place Du 22 Novembre 1943')
+        })
+
+        it('countain the ZIP and city', () => {
+            assert.strictEqual(liBox.at(3).text(), '9424 Alle')
+        })
     })
 })

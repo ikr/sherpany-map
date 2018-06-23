@@ -1,6 +1,4 @@
-function capitalize (s) {
-    return s[0].toUpperCase() + s.substr(1)
-}
+import joinCapitalized from './joinCapitalized'
 
 function toFloat (x) {
     return parseFloat(x)
@@ -11,7 +9,7 @@ export default function ({
     location: {coordinates: {latitude, longitude}}
 }) {
     return {
-        name: [first, last].map(capitalize).join(' '),
+        name: joinCapitalized([first, last]),
         coordinates: [longitude, latitude].map(toFloat)
     }
 }

@@ -7,7 +7,7 @@ export default function ({
     location: {coordinates: {latitude, longitude}}
 }) {
     return {
-        name: [title, first, last].map(capitalize).join(' '),
+        name: [first, last].map(capitalize).join(' '),
         coordinates: [parseFloat(latitude), parseFloat(longitude)]
     }
 }

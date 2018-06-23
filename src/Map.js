@@ -26,7 +26,8 @@ function generateGeographies (geographies, projection) {
                     fill: '#607D8B',
                     stroke: '#607D8B',
                     strokeWidth: 0.75,
-                    outline: 'none'
+                    outline: 'none',
+                    cursor: 'pointer'
                 },
                 pressed: {
                     fill: '#FF5722',
@@ -45,7 +46,7 @@ function generateMarkers (markers) {
             marker={marker}
             style={{
                 default: { fill: '#FF5722' },
-                hover: { fill: '#FFFFFF' },
+                hover: { fill: '#FFFFFF', cursor: 'pointer' },
                 pressed: { fill: '#FF5722' }
             }}>
             <circle

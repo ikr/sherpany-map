@@ -2,6 +2,6 @@
 
 echo -n 'window.People = ' > ./www/People.js && \
 \
-curl -s 'https://randomuser.me/api/?inc=name,location,email,cell,picture&results=128&seed=c0ffee' | json -o json-4 results >> ./www/People.js && \
+curl -s 'https://randomuser.me/api/?inc=name,location,email,cell,picture&results=64&seed=c0ffee' | json -o json-4 results >> ./www/People.js && \
 \
 curl -s 'https://raw.githubusercontent.com/zcreativelabs/react-simple-maps/master/topojson-maps/world-110m.json' > ./www/world-110m.json

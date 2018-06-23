@@ -29,7 +29,7 @@ describe('personMapMarker', () => {
                     thumbnail: 'https://randomuser.me/api/portraits/thumb/men/81.jpg'
                 }
             }),
-            {name: 'Matthieu Roux', coordinates: [-50.9341, -121.3184]}
+            {name: 'Matthieu Roux', coordinates: [-121.3184, -50.9341]}
         )
     })
 })

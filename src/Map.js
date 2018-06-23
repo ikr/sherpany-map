@@ -56,7 +56,11 @@ function generateMarkers (markers) {
             <text
                 textAnchor="middle"
                 y={marker.markerOffset}
-                style={{fontFamily: 'sans-serif', fill: '#607D8B'}}>
+                style={{
+                    fontFamily: 'sans-serif',
+                    fontSize: '12px',
+                    fill: 'black'
+                }}>
                 {marker.name}
             </text>
         </Marker>

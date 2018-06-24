@@ -82,8 +82,8 @@ describe('Map element structure', () => {
 })
 
 describe('Map element with 2 markers', () => {
-    const m1 = {name: 'Mrs Catherine Brady', coordinates: [-7.0208, 97.2450]}
-    const m2 = {name: 'Mr Matthew Knight', coordinates: [43.1676, 26.5837]}
+    const m1 = {name: 'Catherine Brady', coordinates: [-7.0208, 97.2450]}
+    const m2 = {name: 'Matthew Knight', coordinates: [43.1676, 26.5837]}
     let mapBox
 
     beforeEach(() => {

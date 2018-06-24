@@ -8,6 +8,6 @@ import personMapMarker from './personMapMarker'
 const identifiedPeople = identifyAll(1, People)
 
 ReactDOM.render(
-    (<Map markers={identifiedPeople.map(personMapMarker)}/>),
+    (<Map markers={identifiedPeople.map(personMapMarker)} selectedMarkerIds={[]}/>),
     global.document.getElementById('root')
 )

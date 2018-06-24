@@ -7,7 +7,13 @@ import personMapMarker from './personMapMarker'
 
 const identifiedPeople = identifyAll(1, People)
 
+const mapProps = {
+    markers: identifiedPeople.map(personMapMarker),
+    selectedMarkerIds: [],
+    onMarkerClick: console.log
+}
+
 ReactDOM.render(
-    (<Map markers={identifiedPeople.map(personMapMarker)} selectedMarkerIds={[]}/>),
+    <Map {...mapProps}/>,
     global.document.getElementById('root')
 )

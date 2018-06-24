@@ -1,5 +1,6 @@
 import React from 'react'
 import assert from 'assert'
+import {spy} from 'sinon'
 import {shallow} from 'enzyme'
 import Map from '../src/Map'
 
@@ -13,7 +14,9 @@ describe('Map element structure', () => {
     let mapBox
 
     beforeEach(() => {
-        mapBox = shallow(<Map markers={[]} selectedMarkerIds={[]}/>)
+        mapBox = shallow(
+            <Map markers={[]} selectedMarkerIds={[]} onMarkerClick={() => 0}/>
+        )
     })
 
     it('is a div on top level', () => {
@@ -97,7 +100,9 @@ describe('Map element with 2 markers', () => {
     let mapBox
 
     beforeEach(() => {
-        mapBox = shallow(<Map markers={[m1, m2]} selectedMarkerIds={[8]}/>)
+        mapBox = shallow(
+            <Map markers={[m1, m2]} selectedMarkerIds={[8]} onMarkerClick={() => 0}/>
+        )
     })
 
     it('renders 2 markers', () => {
@@ -133,6 +138,32 @@ describe('Map element with 2 markers', () => {
 
         it('is filled with red-ish as it\'s not selected', () => {
             assert.strictEqual(markerBox.prop('style').default.fill, '#FF5722')
+        })
+    })
+})
+
+describe('Map event', () => {
+    let mapBox
+    let onMarkerClick
+
+    beforeEach(() => {
+        onMarkerClick = spy()
+
+        mapBox = shallow(
+            <Map
+                markers={[{id: 4, name: '', coordinates: [0, 0]}]}
+                selectedMarkerIds={[]}
+                onMarkerClick={onMarkerClick}/>
+        )
+    })
+
+    describe('marker click', () => {
+        beforeEach(() => {
+            mapBox.find('Marker').at(0).simulate('click')
+        })
+
+        it('triggers the onMarkerClick with a proper ID', () => {
+            assert(onMarkerClick.calledOnceWith(4))
         })
     })
 })

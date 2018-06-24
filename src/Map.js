@@ -39,7 +39,7 @@ function generateGeographies (geographies, projection) {
     ))
 }
 
-function generateMarkers (markers, selectedMarkerIds) {
+function generateMarkers ({markers, selectedMarkerIds, onMarkerClick}) {
     function isSelected (markerId) {
         return selectedMarkerIds.indexOf(markerId) >= 0
     }
@@ -52,7 +52,8 @@ function generateMarkers (markers, selectedMarkerIds) {
                 default: { fill: isSelected(marker.id) ? 'yellow' : '#FF5722' },
                 hover: { fill: '#FFFFFF', cursor: 'pointer' },
                 pressed: { fill: '#FF5722' }
-            }}>
+            }}
+            onClick={() => { onMarkerClick(marker.id) }}>
             <circle
                 cx={0}
                 cy={0}
@@ -93,7 +94,7 @@ export default function Map (props) {
                         {generateGeographies}
                     </Geographies>
                     <Markers>
-                        {generateMarkers(props.markers, props.selectedMarkerIds)}
+                        {generateMarkers(props)}
                     </Markers>
                 </ZoomableGroup>
             </ComposableMap>
@@ -107,5 +108,6 @@ Map.propTypes = {
         name: PropTypes.string.isRequired,
         coordinates: PropTypes.arrayOf(PropTypes.number)
     })).isRequired,
-    selectedMarkerIds: PropTypes.arrayOf(PropTypes.number).isRequired
+    selectedMarkerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
+    onMarkerClick: PropTypes.func.isRequired
 }

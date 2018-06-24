@@ -5,6 +5,7 @@ import ContactCard from '../src/ContactCard'
 
 function person () {
     return {
+        id: 13,
         name: {title: 'monsieur', first: 'matthieu', last: 'roux'},
         location: {
             street: '605 place du 22 novembre 1943',

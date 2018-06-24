@@ -9,6 +9,7 @@ describe('personMapMarker', () => {
     it('properly projects/transforms the person data', () => {
         assert.deepEqual(
             personMapMarker({
+                id: 4,
                 name: {title: 'monsieur', first: 'matthieu', last: 'roux'},
                 location: {
                     street: '605 place du 22 novembre 1943',

@@ -45,7 +45,7 @@ function generateMarkers (markers) {
             key={i}
             marker={marker}
             style={{
-                default: { fill: '#FF5722' },
+                default: { fill: marker.selected ? 'yellow' : '#FF5722' },
                 hover: { fill: '#FFFFFF', cursor: 'pointer' },
                 pressed: { fill: '#FF5722' }
             }}>
@@ -100,6 +100,7 @@ export default function Map (props) {
 Map.propTypes = {
     markers: PropTypes.arrayOf(PropTypes.shape({
         name: PropTypes.string.isRequired,
-        coordinates: PropTypes.arrayOf(PropTypes.number)
+        coordinates: PropTypes.arrayOf(PropTypes.number),
+        selected: PropTypes.bool.isRequired
     })).isRequired
 }

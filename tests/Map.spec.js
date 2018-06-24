@@ -82,8 +82,18 @@ describe('Map element structure', () => {
 })
 
 describe('Map element with 2 markers', () => {
-    const m1 = {name: 'Catherine Brady', coordinates: [-7.0208, 97.2450]}
-    const m2 = {name: 'Matthew Knight', coordinates: [43.1676, 26.5837]}
+    const m1 = {
+        name: 'Catherine Brady',
+        coordinates: [-7.0208, 97.2450],
+        selected: true
+    }
+
+    const m2 = {
+        name: 'Matthew Knight',
+        coordinates: [43.1676, 26.5837],
+        selected: false
+    }
+
     let mapBox
 
     beforeEach(() => {
@@ -92,6 +102,18 @@ describe('Map element with 2 markers', () => {
 
     it('renders 2 markers', () => {
         assert.strictEqual(mapBox.find('Marker').length, 2)
+    })
+
+    describe('1st marker', () => {
+        let markerBox
+
+        beforeEach(() => {
+            markerBox = mapBox.find('Marker').at(0)
+        })
+
+        it('is filled with yellow as it\'s selected', () => {
+            assert.strictEqual(markerBox.prop('style').default.fill, 'yellow')
+        })
     })
 
     describe('2nd marker', () => {
@@ -107,6 +129,10 @@ describe('Map element with 2 markers', () => {
 
         it('recerives the proper marker prop value from the Map', () => {
             assert.deepEqual(markerBox.prop('marker'), m2)
+        })
+
+        it('is filled with red-ish as it\'s not selected', () => {
+            assert.strictEqual(markerBox.prop('style').default.fill, '#FF5722')
         })
     })
 })

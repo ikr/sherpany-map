@@ -13,7 +13,7 @@ describe('Map element structure', () => {
     let mapBox
 
     beforeEach(() => {
-        mapBox = shallow(<Map markers={[]}/>)
+        mapBox = shallow(<Map markers={[]} selectedMarkerIds={[]}/>)
     })
 
     it('is a div on top level', () => {
@@ -83,21 +83,21 @@ describe('Map element structure', () => {
 
 describe('Map element with 2 markers', () => {
     const m1 = {
+        id: 8,
         name: 'Catherine Brady',
-        coordinates: [-7.0208, 97.2450],
-        selected: true
+        coordinates: [-7.0208, 97.2450]
     }
 
     const m2 = {
+        id: 5,
         name: 'Matthew Knight',
-        coordinates: [43.1676, 26.5837],
-        selected: false
+        coordinates: [43.1676, 26.5837]
     }
 
     let mapBox
 
     beforeEach(() => {
-        mapBox = shallow(<Map markers={[m1, m2]}/>)
+        mapBox = shallow(<Map markers={[m1, m2]} selectedMarkerIds={[8]}/>)
     })
 
     it('renders 2 markers', () => {

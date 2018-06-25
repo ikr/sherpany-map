@@ -10,7 +10,8 @@ const identifiedPeople = identifyAll(1, People)
 const mapProps = {
     markers: identifiedPeople.map(personMapMarker),
     selectedMarkerIds: [],
-    onMarkerClick: console.log
+    onMarkerClick: console.log,
+    pinCoordinates: [91, 1]
 }
 
 ReactDOM.render(

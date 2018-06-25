@@ -84,7 +84,7 @@ describe('Map element structure', () => {
     })
 })
 
-describe('Map element with 2 markers', () => {
+describe('Map element with 2 markers and a pin', () => {
     const m1 = {
         id: 8,
         name: 'Catherine Brady',
@@ -101,7 +101,11 @@ describe('Map element with 2 markers', () => {
 
     beforeEach(() => {
         mapBox = shallow(
-            <Map markers={[m1, m2]} selectedMarkerIds={[8]} onMarkerClick={() => 0}/>
+            <Map
+                markers={[m1, m2]}
+                selectedMarkerIds={[8]}
+                onMarkerClick={() => 0}
+                pinCoordinates={[91, 1]}/>
         )
     })
 
@@ -139,6 +143,24 @@ describe('Map element with 2 markers', () => {
         it('is filled with red-ish as it\'s not selected', () => {
             assert.strictEqual(markerBox.prop('style').default.fill, '#FF5722')
         })
+    })
+
+    it('contains a Pin element with the passed coordinates', () => {
+        assert.deepEqual(mapBox.find('Pin').prop('coordinates'), [91, 1])
+    })
+})
+
+describe('Map element without a pin', () => {
+    let mapBox
+
+    beforeEach(() => {
+        mapBox = shallow(
+            <Map markers={[]} selectedMarkerIds={[]} onMarkerClick={() => 0}/>
+        )
+    })
+
+    it('doesn\'t have a Pin element', () => {
+        assert(!mapBox.find('Pin').exists())
     })
 })
 

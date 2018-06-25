@@ -8,6 +8,7 @@ import {
     Markers,
     Marker
 } from 'react-simple-maps'
+import Pin from './Pin'
 
 function generateGeographies (geographies, projection) {
     return geographies.map((geography, i) => geography.id !== 'ATA' && (
@@ -73,6 +74,16 @@ function generateMarkers ({markers, selectedMarkerIds, onMarkerClick}) {
     ))
 }
 
+function pinElement ({pinCoordinates}) {
+    if (pinCoordinates) {
+        return [
+            <Pin key='pin' coordinates={pinCoordinates}/>
+        ]
+    }
+
+    return []
+}
+
 export default function Map (props) {
     const divProps = {
         style: {
@@ -95,6 +106,7 @@ export default function Map (props) {
                     </Geographies>
                     <Markers>
                         {generateMarkers(props)}
+                        {pinElement(props)}
                     </Markers>
                 </ZoomableGroup>
             </ComposableMap>
@@ -106,8 +118,9 @@ Map.propTypes = {
     markers: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
-        coordinates: PropTypes.arrayOf(PropTypes.number)
+        coordinates: PropTypes.arrayOf(PropTypes.number).isRequired
     })).isRequired,
     selectedMarkerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
-    onMarkerClick: PropTypes.func.isRequired
+    onMarkerClick: PropTypes.func.isRequired,
+    pinCoordinates: PropTypes.arrayOf(PropTypes.number)
 }

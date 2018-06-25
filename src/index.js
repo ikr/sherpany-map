@@ -11,7 +11,7 @@ const mapProps = {
     markers: identifiedPeople.map(personMapMarker),
     selectedMarkerIds: [],
     onMarkerClick: console.log,
-    pinCoordinates: [91, 1]
+    pinCoordinates: [61, 48]
 }
 
 ReactDOM.render(

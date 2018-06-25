@@ -109,8 +109,8 @@ describe('Map element with 2 markers and a pin', () => {
         )
     })
 
-    it('renders 2 markers', () => {
-        assert.strictEqual(mapBox.find('Marker').length, 2)
+    it('renders 3 Marker elements total', () => {
+        assert.strictEqual(mapBox.find('Marker').length, 3)
     })
 
     describe('1st marker', () => {
@@ -145,8 +145,38 @@ describe('Map element with 2 markers and a pin', () => {
         })
     })
 
-    it('contains a Pin element with the passed coordinates', () => {
-        assert.deepEqual(mapBox.find('Pin').prop('coordinates'), [91, 1])
+    describe('pin Marker', () => {
+        let markerBox
+
+        beforeEach(() => {
+            markerBox = mapBox.find('Marker').at(2)
+        })
+
+        it('is present', () => {
+            assert(markerBox.exists())
+        })
+
+        it('has the "pin" key', () => {
+            assert.strictEqual(markerBox.key(), 'pin')
+        })
+
+        it('sets the marker.coordinates prop', () => {
+            assert.deepEqual(markerBox.prop('marker').coordinates, [91, 1])
+        })
+
+        it('comes in style', () => {
+            assert.notDeepEqual(markerBox.prop('style').default, {})
+            assert.notDeepEqual(markerBox.prop('style').hover, {})
+            assert.notDeepEqual(markerBox.prop('style').pressed, {})
+        })
+
+        it('contains a path element', () => {
+            assert(markerBox.find('g > path').exists())
+        })
+
+        it('contains a circle element', () => {
+            assert(markerBox.find('g > circle').exists())
+        })
     })
 })
 
@@ -159,8 +189,8 @@ describe('Map element without a pin', () => {
         )
     })
 
-    it('doesn\'t have a Pin element', () => {
-        assert(!mapBox.find('Pin').exists())
+    it('doesn\'t have any Marker elements', () => {
+        assert(!mapBox.find('Marker').exists())
     })
 })
 

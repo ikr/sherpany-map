@@ -8,7 +8,6 @@ import {
     Markers,
     Marker
 } from 'react-simple-maps'
-import Pin from './Pin'
 
 function generateGeographies (geographies, projection) {
     return geographies.map((geography, i) => geography.id !== 'ATA' && (
@@ -74,10 +73,36 @@ function generateMarkers ({markers, selectedMarkerIds, onMarkerClick}) {
     ))
 }
 
-function pinElement ({pinCoordinates}) {
+function pinBox ({pinCoordinates}) {
     if (pinCoordinates) {
         return [
-            <Pin key='pin' coordinates={pinCoordinates}/>
+            <Marker
+                key='pin'
+                marker={{coordinates: pinCoordinates}}
+                style={{
+                    default: {stroke: '#455A64'},
+                    hover: {stroke: '#FF5722'},
+                    pressed: {stroke: '#FF5722'}
+                }}>
+                <g transform='translate(-12, -24)'>
+                    <path
+                        fill='none'
+                        strokeWidth={2}
+                        strokeLinecap='square'
+                        strokeMiterlimit={10}
+                        strokeLinejoin='miter'
+                        d='M20,9c0,4.9-8,13-8,13S4,13.9,4,9c0-5.1,4.1-8,8-8S20,3.9,20,9z'/>
+                    <circle
+                        fill='none'
+                        strokeWidth={2}
+                        strokeLinecap='square'
+                        strokeMiterlimit={10}
+                        strokeLinejoin='miter'
+                        cx={12}
+                        cy={9}
+                        r={3}/>
+                </g>
+            </Marker>
         ]
     }
 
@@ -105,8 +130,7 @@ export default function Map (props) {
                         {generateGeographies}
                     </Geographies>
                     <Markers>
-                        {generateMarkers(props)}
-                        {pinElement(props)}
+                        {generateMarkers(props).concat(pinBox(props))}
                     </Markers>
                 </ZoomableGroup>
             </ComposableMap>

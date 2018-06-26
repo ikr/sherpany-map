@@ -228,7 +228,11 @@ describe('Map lines', () => {
         })
 
         it('has the proper coordinates', () => {
-            assert.deepEqual(lineBox.prop('coordinates'), {start: [3, 3], end: [4, 4]})
+            assert.deepEqual(lineBox.prop('line').coordinates, {start: [3, 3], end: [4, 4]})
+        })
+
+        it('comes in style', () => {
+            assert(lineBox.prop('style').default.stroke)
         })
     })
 })

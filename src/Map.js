@@ -42,8 +42,13 @@ function generateGeographies (geographies, projection) {
 }
 
 function generateLines ({lineCoordinates}) {
+    const style = {stroke: 'gray', strokeWidth: 2}
+
     return lineCoordinates.map((coordinates, i) => (
-        <Line key={i} coordinates={coordinates}/>
+        <Line
+            key={i}
+            line={{coordinates}}
+            style={{default: style, hover: style, pressed: style}}/>
     ))
 }
 
@@ -137,12 +142,12 @@ export default function Map (props) {
                     <Geographies geography='world-110m.json'>
                         {generateGeographies}
                     </Geographies>
-                    <Markers>
-                        {generateMarkers(props).concat(pinBox(props))}
-                    </Markers>
                     <Lines>
                         {generateLines(props)}
                     </Lines>
+                    <Markers>
+                        {generateMarkers(props).concat(pinBox(props))}
+                    </Markers>
                 </ZoomableGroup>
             </ComposableMap>
         </div>

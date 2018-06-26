@@ -11,13 +11,16 @@ const markers = identifiedPeople.map(personMapMarker)
 const mapProps = {
     markers,
     selectedMarkerIds: [],
-    onMarkerClick: console.log,
     pinCoordinates: [61, 48],
     lineCoordinates: [
         {start: [61, 48], end: markers[0].coordinates},
         {start: [61, 48], end: markers[1].coordinates},
         {start: [61, 48], end: markers[2].coordinates}
-    ]
+    ],
+    onMarkerClick: console.log,
+    onGeographyClick (geo, evt) {
+        console.dir({geo, evt})
+    }
 }
 
 ReactDOM.render(

@@ -11,34 +11,37 @@ import {
     Marker
 } from 'react-simple-maps'
 
-function generateGeographies (geographies, projection) {
-    return geographies.map((geography, i) => geography.id !== 'ATA' && (
-        <Geography
-            key={i}
-            geography={geography}
-            projection={projection}
-            style={{
-                default: {
-                    fill: '#ECEFF1',
-                    stroke: '#607D8B',
-                    strokeWidth: 0.75,
-                    outline: 'none'
-                },
-                hover: {
-                    fill: '#607D8B',
-                    stroke: '#607D8B',
-                    strokeWidth: 0.75,
-                    outline: 'none',
-                    cursor: 'pointer'
-                },
-                pressed: {
-                    fill: '#FF5722',
-                    stroke: '#607D8B',
-                    strokeWidth: 0.75,
-                    outline: 'none'
-                }
-            }} />
-    ))
+function generateGeographies (onGeographyClick) {
+    return (geographies, projection) => geographies.map(
+        (geography, i) => geography.id !== 'ATA' && (
+            <Geography
+                key={i}
+                geography={geography}
+                projection={projection}
+                onClick={onGeographyClick}
+                style={{
+                    default: {
+                        fill: '#ECEFF1',
+                        stroke: '#607D8B',
+                        strokeWidth: 0.75,
+                        outline: 'none'
+                    },
+                    hover: {
+                        fill: '#607D8B',
+                        stroke: '#607D8B',
+                        strokeWidth: 0.75,
+                        outline: 'none',
+                        cursor: 'pointer'
+                    },
+                    pressed: {
+                        fill: '#FF5722',
+                        stroke: '#607D8B',
+                        strokeWidth: 0.75,
+                        outline: 'none'
+                    }
+                }}/>
+        )
+    )
 }
 
 function generateLines ({lineCoordinates}) {
@@ -140,7 +143,7 @@ export default function Map (props) {
                 style={{width: '100%', height: 'auto'}}>
                 <ZoomableGroup center={[0, 20]} disablePanning>
                     <Geographies geography='world-110m.json'>
-                        {generateGeographies}
+                        {generateGeographies(props.onGeographyClick)}
                     </Geographies>
                     <Lines>
                         {generateLines(props)}
@@ -166,5 +169,6 @@ Map.propTypes = {
     })).isRequired,
     selectedMarkerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
     onMarkerClick: PropTypes.func.isRequired,
+    onGeographyClick: PropTypes.func.isRequired,
     pinCoordinates: PropTypes.arrayOf(PropTypes.number)
 }

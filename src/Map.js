@@ -5,6 +5,8 @@ import {
     ZoomableGroup,
     Geographies,
     Geography,
+    Lines,
+    Line,
     Markers,
     Marker
 } from 'react-simple-maps'
@@ -36,6 +38,12 @@ function generateGeographies (geographies, projection) {
                     outline: 'none'
                 }
             }} />
+    ))
+}
+
+function generateLines ({lineCoordinates}) {
+    return lineCoordinates.map((coordinates, i) => (
+        <Line key={i} coordinates={coordinates}/>
     ))
 }
 
@@ -132,6 +140,9 @@ export default function Map (props) {
                     <Markers>
                         {generateMarkers(props).concat(pinBox(props))}
                     </Markers>
+                    <Lines>
+                        {generateLines(props)}
+                    </Lines>
                 </ZoomableGroup>
             </ComposableMap>
         </div>
@@ -139,6 +150,10 @@ export default function Map (props) {
 }
 
 Map.propTypes = {
+    lineCoordinates: PropTypes.arrayOf(PropTypes.shape({
+        start: PropTypes.arrayOf(PropTypes.number).isRequired,
+        end: PropTypes.arrayOf(PropTypes.number).isRequired
+    })).isRequired,
     markers: PropTypes.arrayOf(PropTypes.shape({
         id: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,

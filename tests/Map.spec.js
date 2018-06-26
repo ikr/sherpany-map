@@ -15,7 +15,11 @@ describe('Map element structure', () => {
 
     beforeEach(() => {
         mapBox = shallow(
-            <Map markers={[]} selectedMarkerIds={[]} onMarkerClick={() => 0}/>
+            <Map
+                markers={[]}
+                selectedMarkerIds={[]}
+                onMarkerClick={() => 0}
+                lineCoordinates={[]}/>
         )
     })
 
@@ -105,6 +109,7 @@ describe('Map element with 2 markers and a pin', () => {
                 markers={[m1, m2]}
                 selectedMarkerIds={[8]}
                 onMarkerClick={() => 0}
+                lineCoordinates={[]}
                 pinCoordinates={[91, 1]}/>
         )
     })
@@ -185,12 +190,46 @@ describe('Map element without a pin', () => {
 
     beforeEach(() => {
         mapBox = shallow(
-            <Map markers={[]} selectedMarkerIds={[]} onMarkerClick={() => 0}/>
+            <Map
+                markers={[]}
+                selectedMarkerIds={[]}
+                onMarkerClick={() => 0}
+                lineCoordinates={[]}/>
         )
     })
 
     it('doesn\'t have any Marker elements', () => {
         assert(!mapBox.find('Marker').exists())
+    })
+})
+
+describe('Map lines', () => {
+    let mapBox
+
+    beforeEach(() => {
+        mapBox = shallow(
+            <Map
+                markers={[]}
+                selectedMarkerIds={[]}
+                onMarkerClick={() => 0}
+                lineCoordinates={[{start: [1, 1], end: [2, 2]}, {start: [3, 3], end: [4, 4]}]}/>
+        )
+    })
+
+    it('get rendered', () => {
+        assert.strictEqual(mapBox.find('ZoomableGroup > Lines > Line').length, 2)
+    })
+
+    describe('element two', () => {
+        let lineBox
+
+        beforeEach(() => {
+            lineBox = mapBox.find('Line').at(1)
+        })
+
+        it('has the proper coordinates', () => {
+            assert.deepEqual(lineBox.prop('coordinates'), {start: [3, 3], end: [4, 4]})
+        })
     })
 })
 
@@ -205,7 +244,8 @@ describe('Map event', () => {
             <Map
                 markers={[{id: 4, name: '', coordinates: [0, 0]}]}
                 selectedMarkerIds={[]}
-                onMarkerClick={onMarkerClick}/>
+                onMarkerClick={onMarkerClick}
+                lineCoordinates={[]}/>
         )
     })
 

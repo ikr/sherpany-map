@@ -19,7 +19,7 @@ describe('Map element structure', () => {
                 markers={[]}
                 selectedMarkerIds={[]}
                 onMarkerClick={x => 0}
-                onGeographyClick={x => 0}
+                onCoordinatesClick={x => 0}
                 lineCoordinates={[]}/>
         )
     })
@@ -110,7 +110,7 @@ describe('Map element with 2 markers and a pin', () => {
                 markers={[m1, m2]}
                 selectedMarkerIds={[8]}
                 onMarkerClick={x => 0}
-                onGeographyClick={x => 0}
+                onCoordinatesClick={x => 0}
                 lineCoordinates={[]}
                 pinCoordinates={[91, 1]}/>
         )
@@ -196,7 +196,7 @@ describe('Map element without a pin', () => {
                 markers={[]}
                 selectedMarkerIds={[]}
                 onMarkerClick={x => 0}
-                onGeographyClick={x => 0}
+                onCoordinatesClick={x => 0}
                 lineCoordinates={[]}/>
         )
     })
@@ -215,7 +215,7 @@ describe('Map lines', () => {
                 markers={[]}
                 selectedMarkerIds={[]}
                 onMarkerClick={x => 0}
-                onGeographyClick={x => 0}
+                onCoordinatesClick={x => 0}
                 lineCoordinates={[{start: [1, 1], end: [2, 2]}, {start: [3, 3], end: [4, 4]}]}/>
         )
     })
@@ -253,7 +253,7 @@ describe('Map event', () => {
                 markers={[{id: 4, name: '', coordinates: [0, 0]}]}
                 selectedMarkerIds={[]}
                 onMarkerClick={onMarkerClick}
-                onGeographyClick={x => 0}
+                onCoordinatesClick={x => 0}
                 lineCoordinates={[]}/>
         )
     })

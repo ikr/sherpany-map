@@ -11,14 +11,21 @@ import {
     Marker
 } from 'react-simple-maps'
 
-function generateGeographies (onGeographyClick) {
+function onGeographyClick (projection, onCoordinatesClick) {
+    return function (geo, evt) {
+        console.dir({geo, evt})
+        onCoordinatesClick(projection.invert([evt.clientX, evt.clientY]))
+    }
+}
+
+function generateGeographies (onCoordinatesClick) {
     return (geographies, projection) => geographies.map(
         (geography, i) => geography.id !== 'ATA' && (
             <Geography
                 key={i}
                 geography={geography}
                 projection={projection}
-                onClick={onGeographyClick}
+                onClick={onGeographyClick(projection, onCoordinatesClick)}
                 style={{
                     default: {
                         fill: '#ECEFF1',
@@ -143,7 +150,7 @@ export default function Map (props) {
                 style={{width: '100%', height: 'auto'}}>
                 <ZoomableGroup center={[0, 20]} disablePanning>
                     <Geographies geography='world-110m.json'>
-                        {generateGeographies(props.onGeographyClick)}
+                        {generateGeographies(props.onCoordinatesClick)}
                     </Geographies>
                     <Lines>
                         {generateLines(props)}
@@ -169,6 +176,6 @@ Map.propTypes = {
     })).isRequired,
     selectedMarkerIds: PropTypes.arrayOf(PropTypes.number).isRequired,
     onMarkerClick: PropTypes.func.isRequired,
-    onGeographyClick: PropTypes.func.isRequired,
+    onCoordinatesClick: PropTypes.func.isRequired,
     pinCoordinates: PropTypes.arrayOf(PropTypes.number)
 }

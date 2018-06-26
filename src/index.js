@@ -18,9 +18,8 @@ const mapProps = {
         {start: [61, 48], end: markers[2].coordinates}
     ],
     onMarkerClick: console.log,
-    onGeographyClick (geo, evt) {
-        console.dir({geo, evt})
-    }
+    onCoordinatesClick: console.dir
+
 }
 
 ReactDOM.render(

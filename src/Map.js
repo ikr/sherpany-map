@@ -13,7 +13,6 @@ import {
 
 function onGeographyClick (projection, onCoordinatesClick) {
     return function (geo, evt) {
-        console.dir({geo, evt})
         onCoordinatesClick(projection.invert([evt.clientX, evt.clientY]))
     }
 }

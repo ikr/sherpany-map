@@ -36,8 +36,9 @@ describe('App', () => {
 describe('App element', () => {
     let appBox
 
-    beforeEach(() => {
+    beforeEach(done => {
         appBox = shallow(<App people={people()}/>)
+        appBox.setState({pinCoordinates: [42, 42]}, done)
     })
 
     it('has a Map on top level', () => {
@@ -57,6 +58,27 @@ describe('App element', () => {
 
         it('has an identified marker', () => {
             assert(mapBox.prop('markers')[0].id > 0)
+        })
+
+        it('has the coordinates change listener assigned', () => {
+            assert.strictEqual(
+                mapBox.prop('onCoordinatesClick'),
+                appBox.instance().handleCoordinatesClick
+            )
+        })
+
+        it('has the pin coordinates from the state assigned', () => {
+            assert.deepEqual(mapBox.prop('pinCoordinates'), [42, 42])
+        })
+    })
+
+    describe('handleCoordinatesClick', () => {
+        beforeEach(done => {
+            appBox.instance().handleCoordinatesClick([3, 5], done)
+        })
+
+        it('changes the pin coordinates in the app state', () => {
+            assert.deepEqual(appBox.state('pinCoordinates'), [3, 5])
         })
     })
 })

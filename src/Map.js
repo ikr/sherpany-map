@@ -12,6 +12,9 @@ import {
 } from 'react-simple-maps'
 import {geoPath} from 'd3-geo'
 
+const MAP_MAX_WIDTH = 980
+const MAP_MAX_HEIGHT = 551
+
 function onGeographyClick (projection, onCoordinatesClick) {
     const gp = geoPath().projection(projection)
 
@@ -143,7 +146,7 @@ export default function Map (props) {
     const divProps = {
         style: {
             width: '100%',
-            maxWidth: 980,
+            maxWidth: MAP_MAX_WIDTH,
             margin: '0 auto'
         }
     }
@@ -152,8 +155,8 @@ export default function Map (props) {
         <div {...divProps}>
             <ComposableMap
                 projectionConfig={{scale: 205, rotation: [-11, 0, 0]}}
-                width={980}
-                height={551}
+                width={MAP_MAX_WIDTH}
+                height={MAP_MAX_HEIGHT}
                 style={{width: '100%', height: 'auto'}}>
                 <ZoomableGroup center={[0, 20]} disablePanning>
                     <Geographies geography='world-110m.json'>

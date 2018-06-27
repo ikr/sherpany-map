@@ -15,7 +15,7 @@ import {geoPath} from 'd3-geo'
 const MAP_MAX_WIDTH = 980
 const MAP_MAX_HEIGHT = 551
 
-function onGeographyClick (projection, onCoordinatesClick) {
+function onGeographyClick (scale, projection, onCoordinatesClick) {
     const gp = geoPath().projection(projection)
 
     return function (geo, evt) {
@@ -28,14 +28,14 @@ function onGeographyClick (projection, onCoordinatesClick) {
     }
 }
 
-function generateGeographies (onCoordinatesClick) {
+function generateGeographies (scale, onCoordinatesClick) {
     return (geographies, projection) => geographies.map(
         (geography, i) => geography.id !== 'ATA' && (
             <Geography
                 key={i}
                 geography={geography}
                 projection={projection}
-                onClick={onGeographyClick(projection, onCoordinatesClick)}
+                onClick={onGeographyClick(scale, projection, onCoordinatesClick)}
                 style={{
                     default: {
                         fill: '#ECEFF1',
@@ -151,6 +151,7 @@ export default class Map extends React.Component {
 
     componentDidMount () {
         if (global.window) {
+            this.handleResize()
             global.window.addEventListener('resize', this.handleResize)
         }
     }
@@ -179,7 +180,7 @@ export default class Map extends React.Component {
                     style={{width: '100%', height: 'auto'}}>
                     <ZoomableGroup center={[0, 20]} disablePanning>
                         <Geographies geography='world-110m.json'>
-                            {generateGeographies(this.props.onCoordinatesClick)}
+                            {generateGeographies(this.state.scale, this.props.onCoordinatesClick)}
                         </Geographies>
                         <Lines>
                             {generateLines(this.props)}
@@ -197,7 +198,6 @@ export default class Map extends React.Component {
         const svg = global.document.querySelector('svg')
         const {width} = svg.getBoundingClientRect()
         this.setState({scale: width / MAP_MAX_WIDTH})
-        console.log(width / MAP_MAX_WIDTH)
     }
 }
 

@@ -10,10 +10,18 @@ import {
     Markers,
     Marker
 } from 'react-simple-maps'
+import {geoPath} from 'd3-geo'
 
 function onGeographyClick (projection, onCoordinatesClick) {
+    const gp = geoPath().projection(projection)
+
     return function (geo, evt) {
-        onCoordinatesClick(projection.invert([evt.clientX, evt.clientY]))
+        const dim = evt.target.getBoundingClientRect()
+        const cx = evt.clientX - dim.left
+        const cy = evt.clientY - dim.top
+        const [orgX, orgY] = gp.bounds(geo)[0]
+
+        onCoordinatesClick(projection.invert([orgX + cx, orgY + cy]))
     }
 }
 

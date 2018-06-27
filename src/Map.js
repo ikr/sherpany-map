@@ -142,36 +142,63 @@ function pinBox ({pinCoordinates}) {
     return []
 }
 
-export default function Map (props) {
-    const divProps = {
-        style: {
-            width: '100%',
-            maxWidth: MAP_MAX_WIDTH,
-            margin: '0 auto'
+export default class Map extends React.Component {
+    constructor (props) {
+        super(props)
+        this.state = {scale: 1.0}
+        this.handleResize = this.handleResize.bind(this)
+    }
+
+    componentDidMount () {
+        if (global.window) {
+            global.window.addEventListener('resize', this.handleResize)
         }
     }
 
-    return (
-        <div {...divProps}>
-            <ComposableMap
-                projectionConfig={{scale: 205, rotation: [-11, 0, 0]}}
-                width={MAP_MAX_WIDTH}
-                height={MAP_MAX_HEIGHT}
-                style={{width: '100%', height: 'auto'}}>
-                <ZoomableGroup center={[0, 20]} disablePanning>
-                    <Geographies geography='world-110m.json'>
-                        {generateGeographies(props.onCoordinatesClick)}
-                    </Geographies>
-                    <Lines>
-                        {generateLines(props)}
-                    </Lines>
-                    <Markers>
-                        {generateMarkers(props).concat(pinBox(props))}
-                    </Markers>
-                </ZoomableGroup>
-            </ComposableMap>
-        </div>
-    )
+    componentWillUnmount () {
+        if (global.window) {
+            global.window.removeEventListener('resize', this.handleResize)
+        }
+    }
+
+    render () {
+        const divProps = {
+            style: {
+                width: '100%',
+                maxWidth: MAP_MAX_WIDTH,
+                margin: '0 auto'
+            }
+        }
+
+        return (
+            <div {...divProps}>
+                <ComposableMap
+                    projectionConfig={{scale: 205, rotation: [-11, 0, 0]}}
+                    width={MAP_MAX_WIDTH}
+                    height={MAP_MAX_HEIGHT}
+                    style={{width: '100%', height: 'auto'}}>
+                    <ZoomableGroup center={[0, 20]} disablePanning>
+                        <Geographies geography='world-110m.json'>
+                            {generateGeographies(this.props.onCoordinatesClick)}
+                        </Geographies>
+                        <Lines>
+                            {generateLines(this.props)}
+                        </Lines>
+                        <Markers>
+                            {generateMarkers(this.props).concat(pinBox(this.props))}
+                        </Markers>
+                    </ZoomableGroup>
+                </ComposableMap>
+            </div>
+        )
+    }
+
+    handleResize () {
+        const svg = global.document.querySelector('svg')
+        const {width} = svg.getBoundingClientRect()
+        this.setState({scale: width / MAP_MAX_WIDTH})
+        console.log(width / MAP_MAX_WIDTH)
+    }
 }
 
 Map.propTypes = {

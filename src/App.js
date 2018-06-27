@@ -7,8 +7,9 @@ import personMapMarker from './personMapMarker'
 export default class App extends React.Component {
     constructor (props) {
         super(props)
-        this.state = {pinCoordinates: null}
+        this.state = {pinCoordinates: null, selectedMarkerIds: []}
         this.handleCoordinatesClick = this.handleCoordinatesClick.bind(this)
+        this.handleMarkerClick = this.handleMarkerClick.bind(this)
     }
 
     render () {
@@ -18,10 +19,10 @@ export default class App extends React.Component {
     mapProps () {
         return {
             markers: this.mapMarkers(),
-            selectedMarkerIds: [],
+            selectedMarkerIds: this.state.selectedMarkerIds,
             pinCoordinates: this.state.pinCoordinates,
             lineCoordinates: [],
-            onMarkerClick: x => 0,
+            onMarkerClick: this.handleMarkerClick,
             onCoordinatesClick: this.handleCoordinatesClick
         }
     }
@@ -31,7 +32,11 @@ export default class App extends React.Component {
     }
 
     handleCoordinatesClick (pinCoordinates, callback) {
-        this.setState({pinCoordinates}, callback)
+        this.setState({pinCoordinates, selectedMarkerIds: []}, callback)
+    }
+
+    handleMarkerClick (markerId, callback) {
+        this.setState({selectedMarkerIds: [markerId], pinCoordinates: null}, callback)
     }
 }
 

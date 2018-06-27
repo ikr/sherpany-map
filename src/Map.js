@@ -79,9 +79,9 @@ function generateMarkers ({markers, selectedMarkerIds, onMarkerClick}) {
             key={i}
             marker={marker}
             style={{
-                default: { fill: isSelected(marker.id) ? 'yellow' : '#FF5722' },
-                hover: { fill: '#FFFFFF', cursor: 'pointer' },
-                pressed: { fill: '#FF5722' }
+                default: {fill: isSelected(marker.id) ? 'yellow': '#FF5722'},
+                hover: {fill: isSelected(marker.id) ? 'yellow': '#FFFFFF', cursor: 'pointer'},
+                pressed: {fill: '#FF5722'}
             }}
             onClick={() => { onMarkerClick(marker.id) }}>
             <circle

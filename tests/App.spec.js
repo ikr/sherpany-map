@@ -38,7 +38,11 @@ describe('App element', () => {
 
     beforeEach(done => {
         appBox = shallow(<App people={people()}/>)
-        appBox.setState({pinCoordinates: [42, 42]}, done)
+
+        appBox.setState({
+            pinCoordinates: [42, 42],
+            selectedMarkerIds: [1]
+        }, done)
     })
 
     it('has a Map on top level', () => {
@@ -60,6 +64,10 @@ describe('App element', () => {
             assert(mapBox.prop('markers')[0].id > 0)
         })
 
+        it('has the pin coordinates from the state assigned', () => {
+            assert.deepEqual(mapBox.prop('pinCoordinates'), [42, 42])
+        })
+
         it('has the coordinates change listener assigned', () => {
             assert.strictEqual(
                 mapBox.prop('onCoordinatesClick'),
@@ -67,8 +75,12 @@ describe('App element', () => {
             )
         })
 
-        it('has the pin coordinates from the state assigned', () => {
-            assert.deepEqual(mapBox.prop('pinCoordinates'), [42, 42])
+        it('has the selected marker ID-s from the state assigned', () => {
+            assert.deepEqual(mapBox.prop('selectedMarkerIds'), [1])
+        })
+
+        it('has the marker click handler assigned', () => {
+            assert.strictEqual(mapBox.prop('onMarkerClick'), appBox.instance().handleMarkerClick)
         })
     })
 
@@ -79,6 +91,24 @@ describe('App element', () => {
 
         it('changes the pin coordinates in the app state', () => {
             assert.deepEqual(appBox.state('pinCoordinates'), [3, 5])
+        })
+
+        it('clears the marker selection', () => {
+            assert.deepEqual(appBox.state('selectedMarkerIds'), [])
+        })
+    })
+
+    describe('handleMarkerClick', () => {
+        beforeEach(done => {
+            appBox.instance().handleMarkerClick(133, done)
+        })
+
+        it('sets the newly selected marker in the app state', () => {
+            assert.deepEqual(appBox.state('selectedMarkerIds'), [133])
+        })
+
+        it('clears the pin', () => {
+            assert.strictEqual(appBox.state('pinCoordinates'), null)
         })
     })
 })

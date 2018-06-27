@@ -110,9 +110,9 @@ function pinBox ({pinCoordinates}) {
                 key='pin'
                 marker={{coordinates: pinCoordinates}}
                 style={{
-                    default: {stroke: '#455A64'},
-                    hover: {stroke: '#FF5722'},
-                    pressed: {stroke: '#FF5722'}
+                    default: {stroke: 'red'},
+                    hover: {stroke: 'red'},
+                    pressed: {stroke: 'red'}
                 }}>
                 <g transform='translate(-12, -24)'>
                     <path

@@ -1,5 +1,5 @@
 import {geoDistance} from 'd3-geo'
 
-export default function (origin, target) {
-    return geoDistance(origin, target) > (Math.PI / 2)
+export default function (originCoordinates, targetCoordinates) {
+    return geoDistance(originCoordinates, targetCoordinates) > (Math.PI / 2)
 }

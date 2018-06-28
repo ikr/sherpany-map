@@ -13,7 +13,7 @@ function people () {
             city: 'alle',
             state: 'vaud',
             postcode: 9424,
-            coordinates: {latitude: '-50.9341', longitude: '-121.3184'},
+            coordinates: {latitude: '-50', longitude: '121'},
             timezone: {
                 offset: '+9:00',
                 description: 'Tokyo, Seoul, Osaka, Sapporo, Yakutsk'
@@ -34,7 +34,7 @@ function people () {
             city: 'hersbruck',
             state: 'nordrhein-westfalen',
             postcode: 50431,
-            coordinates: {latitude: '5.0457', longitude: '-5.6224'},
+            coordinates: {latitude: '5', longitude: '-5'},
             timezone: {offset: '-3:30', description: 'Newfoundland'}},
         email: 'melanie.wanke@example.com',
         cell: '0170-3472907',
@@ -104,6 +104,22 @@ describe('App element', () => {
 
         it('has the marker click handler assigned', () => {
             assert.strictEqual(mapBox.prop('onMarkerClick'), appBox.instance().handleMarkerClick)
+        })
+
+        it('has the line drawn from pin to people of interest', () => {
+            assert.deepEqual(
+                mapBox.prop('lineCoordinates'),
+                [{
+                    start: [42, 42],
+                    end: [-5, 5]
+                }, {
+                    start: [42, 42],
+                    end: [121, -50]
+                }, {
+                    start: [42, 42],
+                    end: [-5, 5]
+                }]
+            )
         })
     })
 

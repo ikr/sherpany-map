@@ -7,6 +7,10 @@ function objectValues (obj) {
     return Object.keys(obj).map(k => obj[k])
 }
 
+function personCoordinates ({location: {coordinates: {latitude, longitude}}}) {
+    return [parseFloat(longitude), parseFloat(latitude)]
+}
+
 export default class App extends React.Component {
     constructor (props) {
         super(props)
@@ -20,11 +24,21 @@ export default class App extends React.Component {
     }
 
     mapProps () {
+        const lineCoordinates = (
+            this.state.pinCoordinates
+                ? objectValues(
+                    this.props.peopleOfInterest(this.state.pinCoordinates, this.people())
+                ).map(id => ({
+                    start: this.state.pinCoordinates,
+                    end: personCoordinates(this.props.peopleById[id])
+                })) : []
+        )
+
         return {
             markers: this.mapMarkers(),
             selectedMarkerIds: this.state.selectedMarkerIds,
             pinCoordinates: this.state.pinCoordinates,
-            lineCoordinates: [],
+            lineCoordinates,
             onMarkerClick: this.handleMarkerClick,
             onCoordinatesClick: this.handleCoordinatesClick
         }

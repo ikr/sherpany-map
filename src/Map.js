@@ -24,7 +24,7 @@ function onGeographyClick (scale, projection, onCoordinatesClick) {
         const cy = evt.clientY - dim.top
         const [orgX, orgY] = gp.bounds(geo)[0]
 
-        onCoordinatesClick(projection.invert([orgX + cx / scale, orgY + cy / scale]))
+        onCoordinatesClick(projection.invert([orgX + cx / scale(), orgY + cy / scale()]))
     }
 }
 
@@ -147,6 +147,7 @@ export default class Map extends React.Component {
         super(props)
         this.state = {scale: 1.0}
         this.handleResize = this.handleResize.bind(this)
+        this.getScale = this.getScale.bind(this)
     }
 
     componentDidMount () {
@@ -163,13 +164,7 @@ export default class Map extends React.Component {
     }
 
     render () {
-        const divProps = {
-            style: {
-                width: '100%',
-                maxWidth: MAP_MAX_WIDTH,
-                margin: '0 auto'
-            }
-        }
+        const divProps = {style: {width: '100%', maxWidth: MAP_MAX_WIDTH, margin: '0 auto'}}
 
         return (
             <div {...divProps}>
@@ -180,7 +175,7 @@ export default class Map extends React.Component {
                     style={{width: '100%', height: 'auto'}}>
                     <ZoomableGroup center={[0, 20]} disablePanning>
                         <Geographies geography='world-110m.json'>
-                            {generateGeographies(this.state.scale, this.props.onCoordinatesClick)}
+                            {generateGeographies(this.getScale, this.props.onCoordinatesClick)}
                         </Geographies>
                         <Lines>
                             {generateLines(this.props)}
@@ -198,6 +193,10 @@ export default class Map extends React.Component {
         const svg = global.document.querySelector('svg')
         const {width} = svg.getBoundingClientRect()
         this.setState({scale: width / MAP_MAX_WIDTH})
+    }
+
+    getScale () {
+        return this.state.scale
     }
 }
 

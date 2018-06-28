@@ -28,7 +28,10 @@ export default class App extends React.Component {
     }
 
     mapMarkers () {
-        return identifyAll(1, Object.values(this.props.peopleById)).map(personMapMarker)
+        return identifyAll(
+            1,
+            Object.keys(this.props.peopleById).map(id => this.props.peopleById[id])
+        ).map(personMapMarker)
     }
 
     handleCoordinatesClick (pinCoordinates, callback) {

@@ -24,7 +24,7 @@ function onGeographyClick (scale, projection, onCoordinatesClick) {
         const cy = evt.clientY - dim.top
         const [orgX, orgY] = gp.bounds(geo)[0]
 
-        onCoordinatesClick(projection.invert([orgX + cx, orgY + cy]))
+        onCoordinatesClick(projection.invert([orgX + cx / scale, orgY + cy / scale]))
     }
 }
 

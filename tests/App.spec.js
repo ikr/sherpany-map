@@ -116,8 +116,8 @@ describe('App element', () => {
             assert.deepEqual(appBox.state('pinCoordinates'), [3, 5])
         })
 
-        it('clears the marker selection', () => {
-            assert.deepEqual(appBox.state('selectedMarkerIds'), [])
+        it('sets the marker selection to the people of interest', () => {
+            assert.deepEqual(appBox.state('selectedMarkerIds'), [2, 1, 2])
         })
     })
 

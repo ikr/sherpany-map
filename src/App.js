@@ -28,10 +28,11 @@ export default class App extends React.Component {
     }
 
     mapMarkers () {
-        return identifyAll(
-            1,
-            Object.keys(this.props.peopleById).map(id => this.props.peopleById[id])
-        ).map(personMapMarker)
+        return identifyAll(1, this.people()).map(personMapMarker)
+    }
+
+    people () {
+        return Object.keys(this.props.peopleById).map(id => this.props.peopleById[id])
     }
 
     handleCoordinatesClick (pinCoordinates, callback) {

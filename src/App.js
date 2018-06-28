@@ -28,7 +28,7 @@ export default class App extends React.Component {
     }
 
     mapMarkers () {
-        return identifyAll(1, this.props.people).map(personMapMarker)
+        return identifyAll(1, Object.values(this.props.peopleById)).map(personMapMarker)
     }
 
     handleCoordinatesClick (pinCoordinates, callback) {
@@ -41,5 +41,5 @@ export default class App extends React.Component {
 }
 
 App.propTypes = {
-    people: PropTypes.arrayOf(PropTypes.object).isRequired
+    peopleById: PropTypes.object.isRequired
 }

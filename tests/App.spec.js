@@ -2,6 +2,7 @@ import React from 'react'
 import assert from 'assert'
 import {shallow} from 'enzyme'
 import App from '../src/App'
+import byId from '../src/byId'
 
 function people () {
     return [{
@@ -37,7 +38,7 @@ describe('App element', () => {
     let appBox
 
     beforeEach(done => {
-        appBox = shallow(<App people={people()}/>)
+        appBox = shallow(<App peopleById={byId(people())}/>)
 
         appBox.setState({
             pinCoordinates: [42, 42],

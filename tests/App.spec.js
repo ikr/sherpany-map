@@ -68,8 +68,8 @@ describe('App element', () => {
         }, done)
     })
 
-    it('has a Map on top level', () => {
-        assert.strictEqual(appBox.name(), 'Map')
+    it('has a main on top level', () => {
+        assert.strictEqual(appBox.name(), 'main')
     })
 
     describe('Map', () => {
@@ -139,15 +139,41 @@ describe('App element', () => {
 
     describe('handleMarkerClick', () => {
         beforeEach(done => {
-            appBox.instance().handleMarkerClick(133, done)
+            appBox.instance().handleMarkerClick(2, done)
         })
 
         it('sets the newly selected marker in the app state', () => {
-            assert.deepEqual(appBox.state('selectedMarkerIds'), [133])
+            assert.deepEqual(appBox.state('selectedMarkerIds'), [2])
         })
 
         it('clears the pin', () => {
             assert.strictEqual(appBox.state('pinCoordinates'), null)
         })
+    })
+})
+
+describe('App ContactCards when one marker is selected', () => {
+    let appBox
+    let contactCardsBox
+
+    beforeEach(done => {
+        appBox = shallow(<App peopleById={byId(people())} peopleOfInterest={mockPeopleOfInterest}/>)
+
+        appBox.setState({selectedMarkerIds: [1]}, () => {
+            contactCardsBox = appBox.find('ContactCards')
+            done()
+        })
+    })
+
+    it('is present', () => {
+        assert(contactCardsBox.exists())
+    })
+
+    it('contains a single card', () => {
+        assert.strictEqual(contactCardsBox.prop('cards').length, 1)
+    })
+
+    it('has the "Selected" title at index 0', () => {
+        assert.strictEqual(contactCardsBox.prop('cards')[0].title, 'Selected')
     })
 })

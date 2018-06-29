@@ -2,6 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Map from './Map'
 import personMapMarker from './personMapMarker'
+import ContactCards from './ContactCards'
 
 function objectValues (obj) {
     return Object.keys(obj).map(k => obj[k])
@@ -20,7 +21,12 @@ export default class App extends React.Component {
     }
 
     render () {
-        return <Map {...this.mapProps()}/>
+        return (
+            <main>
+                <Map {...this.mapProps()}/>
+                <ContactCards cards={this.cards()}/>
+            </main>
+        )
     }
 
     mapProps () {
@@ -63,6 +69,13 @@ export default class App extends React.Component {
 
     people () {
         return objectValues(this.props.peopleById)
+    }
+
+    cards () {
+        return this.state.selectedMarkerIds.map(id => ({
+            title: 'Selected',
+            person: this.props.peopleById[id]
+        }))
     }
 }
 

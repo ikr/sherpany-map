@@ -13,6 +13,7 @@ function zipAndCity ({location: {postcode, city}}) {
 export default function ContactCard (props) {
     return (
         <article>
+            <h2>{props.title}</h2>
             <img
                 src={props.person.picture.thumbnail}
                 alt={personName(props.person)}
@@ -31,6 +32,7 @@ export default function ContactCard (props) {
 }
 
 ContactCard.propTypes = {
+    title: PropTypes.string.isRequired,
     person: PropTypes.shape({
         name: PropTypes.shape({
             title: PropTypes.string.isRequired,

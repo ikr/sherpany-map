@@ -38,11 +38,15 @@ describe('ContactCard element', () => {
     let contactCardBox
 
     beforeEach(() => {
-        contactCardBox = shallow(<ContactCard person={person()}/>)
+        contactCardBox = shallow(<ContactCard title='Selected' person={person()}/>)
     })
 
     it('is an article on the top level', () => {
         assert.strictEqual(contactCardBox.type(), 'article')
+    })
+
+    it('contains the passed titile', () => {
+        assert.strictEqual(contactCardBox.find('h2').text(), 'Selected')
     })
 
     it('contains the person\'s thumbnail photo', () => {

@@ -154,26 +154,17 @@ describe('App element', () => {
 
 describe('App ContactCards when one marker is selected', () => {
     let appBox
-    let contactCardsBox
 
     beforeEach(done => {
         appBox = shallow(<App peopleById={byId(people())} peopleOfInterest={mockPeopleOfInterest}/>)
-
-        appBox.setState({selectedMarkerIds: [1]}, () => {
-            contactCardsBox = appBox.find('ContactCards')
-            done()
-        })
-    })
-
-    it('is present', () => {
-        assert(contactCardsBox.exists())
+        appBox.instance().handleMarkerClick(1, done)
     })
 
     it('contains a single card', () => {
-        assert.strictEqual(contactCardsBox.prop('cards').length, 1)
+        assert.strictEqual(appBox.instance().cards().length, 1)
     })
 
     it('has the "Selected" title at index 0', () => {
-        assert.strictEqual(contactCardsBox.prop('cards')[0].title, 'Selected')
+        assert.strictEqual(appBox.instance().cards()[0].title, 'Selected')
     })
 })

@@ -12,7 +12,7 @@ function zipAndCity ({location: {postcode, city}}) {
 
 export default function ContactCard (props) {
     return (
-        <article>
+        <article className='card'>
             <h2>{props.title}</h2>
             <img
                 src={props.person.picture.thumbnail}

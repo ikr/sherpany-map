@@ -45,7 +45,11 @@ describe('ContactCard element', () => {
         assert.strictEqual(contactCardBox.type(), 'article')
     })
 
-    it('contains the passed titile', () => {
+    it('has "card" top level CSS class', () => {
+        assert(contactCardBox.hasClass('card'))
+    })
+
+    it('contains the passed title', () => {
         assert.strictEqual(contactCardBox.find('h2').text(), 'Selected')
     })
 

@@ -91,3 +91,17 @@ describe('ContactCard element', () => {
         })
     })
 })
+
+describe('ContactCard element with distance', () => {
+    let contactCardBox
+
+    beforeEach(() => {
+        contactCardBox = shallow(
+            <ContactCard title='Selected' person={person()} distanceKm={1024}/>
+        )
+    })
+
+    it('displays distance in kilometers', () => {
+        assert(contactCardBox.find('h2').text().includes('1024 km'))
+    })
+})

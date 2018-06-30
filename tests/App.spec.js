@@ -167,4 +167,45 @@ describe('App ContactCards when one marker is selected', () => {
     it('has the "Selected" title at index 0', () => {
         assert.strictEqual(appBox.instance().cards()[0].title, 'Selected')
     })
+
+    it('has the proper person at index 0', () => {
+        assert.strictEqual(appBox.instance().cards()[0].person.id, 1)
+    })
+})
+
+describe('App ContactCards when pin is set', () => {
+    let appBox
+
+    beforeEach(done => {
+        appBox = shallow(<App peopleById={byId(people())} peopleOfInterest={mockPeopleOfInterest}/>)
+        appBox.instance().handleCoordinatesClick([13, 14], done)
+    })
+
+    it('contains 3 cards', () => {
+        assert.strictEqual(appBox.instance().cards().length, 3)
+    })
+
+    it('has the "Nearest" title at index 0', () => {
+        assert.strictEqual(appBox.instance().cards()[0].title, 'Nearest')
+    })
+
+    it('has the proper person at index 0', () => {
+        assert.strictEqual(appBox.instance().cards()[0].person.id, 2)
+    })
+
+    it('has the "Other side nearest" title at index 1', () => {
+        assert.strictEqual(appBox.instance().cards()[1].title, 'Other side nearest')
+    })
+
+    it('has the proper person at index 1', () => {
+        assert.strictEqual(appBox.instance().cards()[1].person.id, 1)
+    })
+
+    it('has the "Farthest" title at index 2', () => {
+        assert.strictEqual(appBox.instance().cards()[2].title, 'Farthest')
+    })
+
+    it('has the proper person at index 2', () => {
+        assert.strictEqual(appBox.instance().cards()[2].person.id, 2)
+    })
 })

@@ -72,8 +72,11 @@ export default class App extends React.Component {
     }
 
     cards () {
-        return this.state.selectedMarkerIds.map(id => ({
-            title: 'Selected',
+        const titles = this.state.pinCoordinates
+              ? ['Nearest', 'Other side nearest', 'Farthest'] : ['Selected']
+
+        return this.state.selectedMarkerIds.map((id, i) => ({
+            title: titles[i],
             person: this.props.peopleById[id]
         }))
     }

@@ -16,5 +16,6 @@ PHOTO;MEDIATYPE=image/jpeg:${picture.large}
 TEL;TYPE=cell,voice;VALUE=uri:tel:${cell}
 ADR;HOME:;;${capitalize(street)};${capitalize(city)};;${postcode};${capitalize(state)}
 EMAIL:${email}
+END:VCARD
 `
 }

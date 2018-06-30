@@ -38,6 +38,7 @@ PHOTO;MEDIATYPE=image/jpeg:https://randomuser.me/api/portraits/women/71.jpg
 TEL;TYPE=cell,voice;VALUE=uri:tel:58261755
 ADR;HOME:;;8973 udbyhøjvej;Snertinge;;22477;Danmark
 EMAIL:emilie.kristensen@example.com
+END:VCARD
 `
         )
     })

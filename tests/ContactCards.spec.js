@@ -73,4 +73,31 @@ describe('ContactCards element', () => {
             assert.deepEqual(contactCardBox.prop('person'), person())
         })
     })
+
+    describe('vCard download link', () => {
+        let aBox
+
+        beforeEach(() => {
+            aBox = contactCardsBox.find('a[download]')
+        })
+
+        it('is present', () => {
+            assert(aBox.exists())
+        })
+
+        it('has the downloaded file name assigned', () => {
+            assert.strictEqual(aBox.prop('download'), 'contacts.vcf')
+        })
+
+        it('has the proper text', () => {
+            assert.strictEqual(aBox.text(), 'Download as a vCard file')
+        })
+
+        it('has a data href', () => {
+            assert.strictEqual(
+                aBox.prop('href').indexOf('data:text/plain;charset=utf-8,'),
+                0
+            )
+        })
+    })
 })

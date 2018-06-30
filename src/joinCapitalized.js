@@ -1,6 +1,4 @@
-function capitalize (s) {
-    return s ? s[0].toUpperCase() + s.substr(1) : ''
-}
+import capitalize from './capitalize'
 
 export default function (parts) {
     return parts.map(capitalize).join(' ')

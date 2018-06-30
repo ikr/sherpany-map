@@ -25,8 +25,8 @@ function vCardDiv (cards) {
 export default function ContactCards (props) {
     return (
         <div className='cards'>
-            {props.cards.map(({title, person}, i) => (
-                <ContactCard key={i} {...{title, person}}/>
+            {props.cards.map((c, i) => (
+                <ContactCard key={i} {...c}/>
             ))}
             {vCardDiv(props.cards)}
         </div>
@@ -36,6 +36,7 @@ export default function ContactCards (props) {
 ContactCards.propTypes = {
     cards: PropTypes.arrayOf(PropTypes.shape({
         title: PropTypes.string.isRequired,
-        person: PropTypes.object.isRequired
+        person: PropTypes.object.isRequired,
+        distanceKm: PropTypes.number
     })).isRequired
 }

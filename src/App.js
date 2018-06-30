@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import Map from './Map'
 import personMapMarker from './personMapMarker'
 import ContactCards from './ContactCards'
+import distanceKm from './distanceKm'
 
 function objectValues (obj) {
     return Object.keys(obj).map(k => obj[k])
@@ -79,8 +80,17 @@ export default class App extends React.Component {
 
         return this.state.selectedMarkerIds.map((id, i) => ({
             title: titles[i],
-            person: this.props.peopleById[id]
+            person: this.props.peopleById[id],
+            distanceKm: Math.round(
+                this.state.pinCoordinates
+                    ? distanceKm(this.state.pinCoordinates, this.coordinates(id)) : null
+            )
         }))
+    }
+
+    coordinates (markerId) {
+        const {location: {coordinates: {latitude, longitude}}} = this.props.peopleById[markerId]
+        return [longitude, latitude]
     }
 }
 

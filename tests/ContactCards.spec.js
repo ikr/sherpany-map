@@ -43,7 +43,7 @@ describe('ContactCards element', () => {
     let contactCardsBox
 
     beforeEach(() => {
-        contactCardsBox = shallow(<ContactCards cards={cards()} />)
+        contactCardsBox = shallow(<ContactCards cards={cards()}/>)
     })
 
     it('is a div on the top level', () => {
@@ -99,5 +99,17 @@ describe('ContactCards element', () => {
                 0
             )
         })
+    })
+})
+
+describe('empty ContactCards element', () => {
+    let contactCardsBox
+
+    beforeEach(() => {
+        contactCardsBox = shallow(<ContactCards cards={[]}/>)
+    })
+
+    it('displays no vCard download link', () => {
+        assert(!contactCardsBox.find('a[download]').exists())
     })
 })

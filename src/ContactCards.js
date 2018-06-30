@@ -10,18 +10,25 @@ function vCardData (cards) {
     )
 }
 
+function vCardDiv (cards) {
+    if (cards.length === 0) return null
+
+    return (
+        <div className='vCard'>
+            <a href={vCardData(cards)} download='contacts.vcf'>
+                Download as a vCard file
+            </a>
+        </div>
+    )
+}
+
 export default function ContactCards (props) {
     return (
         <div className='cards'>
             {props.cards.map(({title, person}, i) => (
                 <ContactCard key={i} {...{title, person}}/>
             ))}
-
-            <div className='vCard'>
-                <a href={vCardData(props.cards)} download='contacts.vcf'>
-                    Download as a vCard file
-                </a>
-            </div>
+            {vCardDiv(props.cards)}
         </div>
     )
 }

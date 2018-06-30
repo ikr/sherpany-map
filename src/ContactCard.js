@@ -18,6 +18,7 @@ export default function ContactCard (props) {
                 src={props.person.picture.thumbnail}
                 alt={personName(props.person)}
                 title='Picture of the person'/>
+            {' '}
             <span className='name'>{personName(props.person)}</span>
             <ul>
                 <li>
